@@ -3,128 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BROOK STORE - OFICIAL</title>
+    <title>BROOK STORE | OFICIAL</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            emailjs.init("GELM_vuWtLrQXSsMn"); // Coloque sua Public Key aqui
+            emailjs.init("GELM_vuWtLrQXSsMn"); 
         })();
     </script>
     <style>
-        body { background-color: #050505; color: white; font-family: 'Arial', sans-serif; margin: 0; padding-top: 60px; overflow-x: hidden; }
+        :root { --primary: #7c3aed; --success: #22c55e; --bg: #050505; --card-bg: #111; }
+        body { background-color: var(--bg); color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding-top: 70px; overflow-x: hidden; }
         
-        /* Banner de Promoção */
+        /* Banner de Promoção Superior */
         #promoBanner {
             background: linear-gradient(90deg, #7c3aed, #4c1d95);
-            color: white; text-align: center; padding: 12px; position: fixed; top: 0; width: 100%; z-index: 1000; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            color: white; text-align: center; padding: 15px; position: fixed; top: 0; width: 100%; z-index: 1000; font-weight: bold; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4); text-transform: uppercase; letter-spacing: 1px;
         }
 
-        .container { max-width: 1100px; margin: auto; padding: 20px; text-align: center; }
-        h1 { color: #7c3aed; font-size: 3em; text-transform: uppercase; text-shadow: 0 0 15px #7c3aed; margin-bottom: 5px; }
+        .container { max-width: 1200px; margin: auto; padding: 20px; text-align: center; }
+        h1 { font-size: 3.5em; text-transform: uppercase; background: linear-gradient(to bottom, #fff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px rgba(124, 58, 237, 0.5)); margin-bottom: 10px; }
 
-        /* Grid de Produtos Original */
-        .grid-produtos { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; margin-top: 30px; }
-        .card { background: #111; border: 1px solid #7c3aed; padding: 15px; border-radius: 12px; transition: 0.3s; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 0 20px #7c3aed; }
-        .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
-        .card h3 { font-size: 1.1em; margin: 10px 0; text-transform: uppercase; }
-        .card .preco-antigo { text-decoration: line-through; color: #666; font-size: 0.9em; }
-        .card .preco-novo { color: #22c55e; font-size: 1.3em; font-weight: bold; display: block; margin-top: 5px; }
+        /* Grid de Produtos */
+        .grid-produtos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-top: 40px; }
+        .card { background: var(--card-bg); border: 1px solid rgba(124, 58, 237, 0.2); padding: 20px; border-radius: 15px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
+        .card:hover { transform: translateY(-12px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3); }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; border: 1px solid #222; }
+        
+        .preco-antigo { text-decoration: line-through; color: #666; font-size: 0.9em; display: block; }
+        .preco-novo { color: var(--success); font-size: 1.5em; font-weight: 800; display: block; margin: 5px 0; }
+        .pix-tag { font-size: 0.7em; background: rgba(34, 197, 94, 0.1); color: var(--success); padding: 2px 8px; border-radius: 5px; text-transform: uppercase; }
 
-        /* Seção de Avaliações */
-        .avaliacoes { margin-top: 60px; padding: 30px; background: #0a0a0a; border-radius: 15px; border: 1px solid #222; }
-        .review-card { background: #151515; padding: 15px; border-radius: 10px; border-left: 4px solid #7c3aed; margin-bottom: 15px; text-align: left; }
+        /* Avaliações Profissionais */
+        .avaliacoes { margin-top: 80px; padding: 40px; background: rgba(124, 58, 237, 0.03); border-radius: 20px; border: 1px solid #1a1a1a; }
+        .review-card { background: #0c0c0c; padding: 20px; border-radius: 12px; border-left: 5px solid var(--primary); margin-bottom: 20px; text-align: left; }
+        .stars { color: #fbbf24; margin-bottom: 8px; display: block; }
 
-        /* Modal de Compra (Pop-up) */
-        #modalCompra {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center;
-        }
-        .modal-content { background: #111; padding: 30px; border-radius: 15px; border: 2px solid #7c3aed; width: 90%; max-width: 400px; text-align: center; }
+        /* Modal de Checkout */
+        #modalCompra { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .modal-content { background: #0e0e0e; padding: 40px; border-radius: 20px; border: 2px solid var(--primary); width: 90%; max-width: 450px; text-align: center; }
         
-        input { width: 100%; padding: 12px; margin: 15px 0; border-radius: 5px; border: 1px solid #333; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
-        input:focus { border-color: #7c3aed; outline: none; }
+        input { width: 100%; padding: 15px; margin: 20px 0; border-radius: 8px; border: 1px solid #333; background: #000; color: white; font-size: 16px; transition: 0.3s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(124, 58, 237, 0.3); outline: none; }
         
-        .btn-comprar { background: #7c3aed; color: white; border: none; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
-        .btn-comprar:hover { background: #6d28d9; }
+        .btn-comprar { background: var(--primary); color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: 900; cursor: pointer; width: 100%; text-transform: uppercase; transition: 0.3s; }
+        .btn-comprar:hover { background: #6d28d9; transform: scale(1.02); }
         
-        /* Notificação Flutuante */
-        .notificacao-brook {
-            position: fixed; bottom: 20px; right: 20px; background: #111; color: white; border: 2px solid #7c3aed; padding: 15px; border-radius: 10px; display: none; z-index: 9999; animation: slideIn 0.5s ease-out; box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
-        }
-        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        /* Notificação */
+        .notificacao-brook { position: fixed; bottom: 30px; right: 30px; background: #111; color: white; border: 2px solid var(--primary); padding: 20px; border-radius: 15px; display: none; z-index: 9999; animation: slideIn 0.6s ease-out; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+        @keyframes slideIn { from { transform: translateX(120%); } to { transform: translateX(0); } }
     </style>
 </head>
 <body>
 
-<div id="promoBanner">🚀 PROMOÇÃO: 15% DE DESCONTO NO PIX EM TODOS OS PRODUTOS! ⚡</div>
+<div id="promoBanner">⚡ PROMOÇÃO ATIVA: 15% OFF NO PIX EM TODA A LOJA! ⚡</div>
 
 <div class="container">
     <h1>BROOK STORE</h1>
-    <p style="color: #aaa;">Sua loja número #1 de Scripts e Painéis</p>
+    <p style="color: #888; font-size: 1.2em; letter-spacing: 2px;">PREMIUM SCRIPTS & PAINÉIS</p>
 
     <div class="grid-produtos">
         <div class="card">
             <img src="painel barbie.png" alt="Painel Barbie">
             <h3>PAINEL DA BARBIE</h3>
             <span class="preco-antigo">R$ 5,00</span>
-            <span class="preco-novo">R$ 4,25 (PIX)</span>
-            <button class="btn-comprar" style="margin-top:15px;" onclick="abrirModal('PAINEL DA BARBIE')">COMPRAR</button>
+            <span class="preco-novo">R$ 4,25 <span class="pix-tag">via pix</span></span>
+            <button class="btn-comprar" style="margin-top:20px;" onclick="abrirModal('PAINEL DA BARBIE')">ADQUIRIR AGORA</button>
         </div>
         <div class="card">
             <img src="holograma v2.jpg" alt="Holograma V2">
             <h3>HOLOGRAMA V2</h3>
             <span class="preco-antigo">R$ 1,00</span>
-            <span class="preco-novo">R$ 0,85 (PIX)</span>
-            <button class="btn-comprar" style="margin-top:15px;" onclick="abrirModal('HOLOGRAMA V2')">COMPRAR</button>
+            <span class="preco-novo">R$ 0,85 <span class="pix-tag">via pix</span></span>
+            <button class="btn-comprar" style="margin-top:20px;" onclick="abrirModal('HOLOGRAMA V2')">ADQUIRIR AGORA</button>
         </div>
         <div class="card">
             <img src="painel dark aura.jpg" alt="Dark Aura">
             <h3>PAINEL DARK AURA</h3>
             <span class="preco-antigo">R$ 6,99</span>
-            <span class="preco-novo">R$ 5,94 (PIX)</span>
-            <button class="btn-comprar" style="margin-top:15px;" onclick="abrirModal('PAINEL DARK AURA')">COMPRAR</button>
+            <span class="preco-novo">R$ 5,94 <span class="pix-tag">via pix</span></span>
+            <button class="btn-comprar" style="margin-top:20px;" onclick="abrirModal('PAINEL DARK AURA')">ADQUIRIR AGORA</button>
         </div>
         <div class="card">
             <img src="Atalho full v4 ISO.jpg" alt="Atalho Full">
             <h3>ATALHO FULL V4</h3>
             <span class="preco-antigo">R$ 2,99</span>
-            <span class="preco-novo">R$ 2,54 (PIX)</span>
-            <button class="btn-comprar" style="margin-top:15px;" onclick="abrirModal('ATALHO FULL V4')">COMPRAR</button>
+            <span class="preco-novo">R$ 2,54 <span class="pix-tag">via pix</span></span>
+            <button class="btn-comprar" style="margin-top:20px;" onclick="abrirModal('ATALHO FULL V4')">ADQUIRIR AGORA</button>
         </div>
     </div>
 
     <div class="avaliacoes">
-        <h2 style="color: #7c3aed;">⭐ AVALIAÇÕES RECENTES</h2>
-        <div class="review-card"><strong>Davi:</strong> Entrega instantânea e suporte nota 10 no Discord!</div>
-        <div class="review-card"><strong>Sampaio:</strong> O desconto no PIX de 15% ajudou muito, melhor loja.</div>
-        <div class="review-card"><strong>Lucas:</strong> Painéis funcionando 100% sem erros.</div>
+        <h2 style="color: var(--primary); margin-bottom: 30px;">💬 FEEDBACK DOS MEMBROS</h2>
+        <div class="review-card">
+            <span class="stars">⭐⭐⭐⭐⭐</span>
+            <strong>@Davi008:</strong> "O melhor painel que já usei. Entrega no Gmail foi instantânea após eu mandar o comprovante no Discord!"
+        </div>
+        <div class="review-card">
+            <span class="stars">⭐⭐⭐⭐⭐</span>
+            <strong>@Sampaio_Store:</strong> "Suporte excelente. O desconto de 15% no pix é real, economizei bastante na compra do pack full."
+        </div>
     </div>
 </div>
 
 <div id="modalCompra">
     <div class="modal-content">
-        <h2 id="nomeProduto" style="color: #7c3aed; margin-top: 0;">PRODUTO</h2>
-        <p style="font-size: 14px; color: #ccc;">Atenção: Use apenas e-mails do <b>GMAIL</b> para receber seu acesso.</p>
+        <h2 id="nomeProduto" style="color: var(--primary);">CHECKOUT</h2>
+        <p style="color: #aaa; font-size: 14px;">Para sua segurança, aceitamos apenas <b>GMAIL</b> oficial para envio do código.</p>
         
         <input type="email" id="emailCliente" placeholder="exemplo@gmail.com">
         
-        <button class="btn-comprar" onclick="validarEFinalizar()">GERAR ACESSO</button>
-        <button onclick="fecharModal()" style="background:transparent; color:#666; border:none; margin-top:15px; cursor:pointer; font-size: 14px;">Cancelar</button>
+        <button class="btn-comprar" onclick="validarEFinalizar()">GERAR MEU ACESSO</button>
+        <button onclick="fecharModal()" style="background:transparent; color:#555; border:none; margin-top:20px; cursor:pointer;">Cancelar pedido</button>
     </div>
 </div>
 
 <div id="popNotificacao" class="notificacao-brook">
-    <strong style="color: #7c3aed;">🔔 BROOK AVISA:</strong>
-    <p style="font-size: 13px; margin: 5px 0;">Atualizamos os estoques e liberamos <b>15% OFF no PIX</b>! Aproveite.</p>
-    <button onclick="this.parentElement.style.display='none'" style="background:#7c3aed; color:white; border:none; padding:4px 8px; border-radius:3px; cursor:pointer;">Fechar</button>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <div style="font-size: 25px;">🔔</div>
+        <div>
+            <strong style="color: var(--primary);">AVISO BROOK</strong>
+            <p style="font-size: 13px; margin: 5px 0; color: #ccc;">Aproveite os <b>15% de desconto no PIX</b>. Promoção válida por tempo limitado!</p>
+        </div>
+    </div>
 </div>
 
 <script>
     let produtoSelecionado = "";
 
-    // Notificação ao abrir o site
     window.onload = function() {
-        setTimeout(() => { document.getElementById('popNotificacao').style.display = 'block'; }, 3000);
+        setTimeout(() => { document.getElementById('popNotificacao').style.display = 'block'; }, 2500);
     };
 
     function abrirModal(nome) {
@@ -135,27 +142,23 @@
 
     function fecharModal() { document.getElementById('modalCompra').style.display = 'none'; }
 
-    // FUNÇÃO DE VALIDAÇÃO GMAIL
+    // VALIDAÇÃO RIGOROSA GMAIL
     function validarEFinalizar() {
         const email = document.getElementById('emailCliente').value.trim().toLowerCase();
         
-        // TRAVA: Só aceita se terminar com @gmail.com
         if (!email.endsWith("@gmail.com")) {
-            alert("❌ ERRO: Sistema de segurança ativado! Por favor, utilize um e-mail @gmail.com oficial para continuar.");
+            alert("❌ ERRO DE SEGURANÇA: Utilize apenas um e-mail @gmail.com oficial.");
             return;
         }
 
-        // Se passar na trava, envia o pedido
-        alert("🚀 PEDIDO ENVIADO COM SUCESSO!\n\nAgora abra um Ticket no Discord, envie seu comprovante e o código será enviado para: " + email);
+        alert("🚀 PEDIDO PROCESSADO!\n\nAgora abra seu Ticket no Discord, envie o comprovante e aguarde a liberação no seu Gmail!");
 
-        const codigoGerado = "BROOK" + Math.floor(1000 + Math.random() * 9000);
+        const codigo = "BROOK" + Math.floor(1000 + Math.random() * 9000);
 
         emailjs.send("service_uu69awn", "template_pi9wl0p", {
-            v1: codigoGerado,
+            v1: codigo,
             to_email: email,
             produto: produtoSelecionado
-        }).then(function() {
-            console.log("Sucesso no envio.");
         });
 
         fecharModal();
