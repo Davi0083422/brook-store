@@ -7,72 +7,78 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            emailjs.init("GELM_vuWtLrQXSsMn"); // Sua Key
+            emailjs.init("GELM_vuWtLrQXSsMn"); 
         })();
     </script>
     <style>
-        body { background-color: #050505; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .box { background: #111; padding: 30px; border-radius: 15px; border: 2px solid #7c3aed; text-align: center; width: 90%; max-width: 400px; box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #333; background: #000; color: white; box-sizing: border-box; }
-        button { background: #7c3aed; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; }
-        .admin-btn { background: transparent; color: #333; border: none; font-size: 10px; margin-top: 20px; cursor: pointer; }
-        #painelAdmin { display: none; margin-top: 20px; border-top: 1px dashed #333; padding-top: 20px; }
+        body { background-color: #050505; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .container { background: #111; padding: 30px; border-radius: 15px; border: 2px solid #7c3aed; text-align: center; width: 90%; max-width: 400px; box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #333; background: #000; color: white; box-sizing: border-box; text-align: center; }
+        button { background: #7c3aed; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; transition: 0.3s; }
+        #painelDono { display: none; margin-top: 30px; border-top: 2px dashed #7c3aed; padding-top: 20px; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-<div class="box">
-    <h2 style="color: #7c3aed;">VERIFICAR CÓDIGO</h2>
-    <p style="font-size: 14px; color: #ccc;">Insira o código enviado para o seu Gmail</p>
-    <input type="text" id="inputCodigo" placeholder="Digite seu código aqui">
-    <button onclick="verificar()">VALIDAR ACESSO</button>
-    <div id="resultado" style="margin-top: 15px;"></div>
+<div class="container">
+    <h2 style="color: #7c3aed;">VERIFICAR ACESSO</h2>
+    <input type="text" id="inputCodigo" placeholder="COLOQUE SEU CÓDIGO AQUI">
+    <button id="btnVerificar">VERIFICAR</button>
+    
+    <div id="resultado"></div>
 
-    <button class="admin-btn" onclick="abrirAdmin()">Painel de Liberação</button>
-
-    <div id="painelAdmin">
-        <h3 style="color: #22c55e;">LIBERAR CLIENTE</h3>
-        <input type="password" id="FRECKLES34" placeholder="Senha do Dono">
-        <input type="email" id="emailLiberar" placeholder="Gmail do Cliente">
-        <button style="background: #22c55e;" onclick="enviarCodigoManual()">LIBERAR AGORA</button>
+    <div id="painelDono">
+        <h3 style="color: #22c55e;">SISTEMA DO DONO ATIVO</h3>
+        <p style="font-size: 12px; color: #888;">Liberar acesso para cliente:</p>
+        <input type="email" id="emailLiberar" placeholder="gmail-do-cliente@gmail.com">
+        <button id="btnEnviarEmail" style="background: #22c55e;">ENVIAR CÓDIGO AGORA</button>
     </div>
 </div>
 
 <script>
-    function verificar() {
-        const cod = document.getElementById('inputCodigo').value.trim().toUpperCase();
+    // SEU UUID DO CMD
+    const CHAVE_MESTRA = "03000200-0400-0500-0006-000700080009";
+
+    document.getElementById('btnVerificar').addEventListener('click', function() {
+        const entrada = document.getElementById('inputCodigo').value.trim();
         const res = document.getElementById('resultado');
-        if (cod.startsWith("BROOK") && cod.length > 5) {
-            res.innerHTML = "<h3 style='color:#22c55e;'>✅ ACESSO LIBERADO! Mande print no Discord.</h3>";
-        } else {
-            res.innerHTML = "<span style='color:#ff4444;'>❌ Código Inválido.</span>";
-        }
-    }
 
-    function abrirAdmin() {
-        document.getElementById('painelAdmin').style.display = 'block';
-    }
-
-    function enviarCodigoManual() {
-        const senha = document.getElementById('senhaAdmin').value;
-        const email = document.getElementById('emailLiberar').value;
-        
-        if (senha !== "SUA_SENHA_AQUI") { // Escolha sua senha!
-            alert("Senha incorreta!");
+        // Se o que for digitado for o seu UUID, libera o painel
+        if (entrada === CHAVE_MESTRA) {
+            document.getElementById('painelDono').style.display = 'block';
+            res.innerHTML = "<p style='color: #22c55e;'>Olá Davi! Painel administrativo liberado.</p>";
             return;
         }
 
-        const novoCodigo = "BROOK" + Math.floor(1000 + Math.random() * 9000);
+        // Se for um código de cliente (BROOK...)
+        if (entrada.toUpperCase().startsWith("BROOK") && entrada.length > 5) {
+            res.innerHTML = "<h3 style='color: #22c55e;'>✅ ACESSO LIBERADO!</h3><p>Mande print no Discord.</p>";
+        } else {
+            res.innerHTML = "<p style='color: #ff4444;'>❌ Código Inválido.</p>";
+        }
+    });
+
+    // Função de enviar e-mail pelo painel de dono
+    document.getElementById('btnEnviarEmail').addEventListener('click', function() {
+        const email = document.getElementById('emailLiberar').value.trim();
+        
+        if (!email.endsWith("@gmail.com")) {
+            alert("Erro: O cliente precisa ter um GMAIL!");
+            return;
+        }
+
+        const codigoGerado = "BROOK" + Math.floor(1000 + Math.random() * 9000);
 
         emailjs.send("service_uu69awn", "template_pi9wl0p", {
-            v1: novoCodigo,
+            v1: codigoGerado,
             to_email: email
-        }).then(() => {
-            alert("✅ SUCESSO! Código enviado para " + email);
+        }).then(function() {
+            alert("✅ SUCESSO! Código " + codigoGerado + " enviado para " + email);
+            document.getElementById('emailLiberar').value = "";
         });
-    }
+    });
 </script>
 
 </body>
 </html>
-
