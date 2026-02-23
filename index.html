@@ -7,7 +7,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            emailjs.init("GELM_vuWtLrQXSsMn"); // Sua Key
+            emailjs.init("GELM_vuWtLrQXSsMn"); 
         })();
     </script>
     <style>
@@ -32,12 +32,10 @@
         .btn-comprar { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; text-transform: uppercase; }
         .btn-comprar:hover { background: #6d28d9; transform: scale(1.05); }
 
-        /* Modal de Checkout */
         #modalCompra { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .modal-content { background: #0e0e0e; padding: 30px; border-radius: 20px; border: 2px solid var(--primary); width: 90%; max-width: 400px; text-align: center; }
         input { width: 100%; padding: 12px; margin: 20px 0; border-radius: 8px; border: 1px solid #333; background: #000; color: white; box-sizing: border-box; }
         
-        /* Avaliações */
         .avaliacoes { margin-top: 80px; padding: 40px; background: rgba(124, 58, 237, 0.03); border-radius: 20px; }
         .review-card { background: #0c0c0c; padding: 15px; border-radius: 10px; border-left: 4px solid var(--primary); margin-bottom: 15px; text-align: left; }
     </style>
@@ -58,9 +56,9 @@
         
         <div class="card"><img src="Atalho full v4 ISO.jpg"><h3>ATALHO FULL V4</h3><span class="preco-novo">R$ 2,54</span><button class="btn-comprar" onclick="abrirModal('ATALHO FULL V4')">ADQUIRIR</button></div>
         
-        <div class="card"><img src="painel uriel xiter.jpg"><h3>PAINEL URIEL</h3><span class="preco-novo">R$ 7,50</span><button class="btn-comprar" onclick="abrirModal('PAINEL URIEL')">ADQUIRIR</button></div>
+        <div class="card"><img src="painel Uriel Xiter.jpg"><h3>PAINEL URIEL</h3><span class="preco-novo">R$ 7,50</span><button class="btn-comprar" onclick="abrirModal('PAINEL URIEL')">ADQUIRIR</button></div>
         
-        <div class="card"><img src="auxilio sleep.jpg"><h3>AUXILIO SLEEP</h3><span class="preco-novo">R$ 3,40</span><button class="btn-comprar" onclick="abrirModal('AUXILIO SLEEP')">ADQUIRIR</button></div>
+        <div class="card"><img src="Auxilio Sleep.jpg"><h3>AUXILIO SLEEP</h3><span class="preco-novo">R$ 3,40</span><button class="btn-comprar" onclick="abrirModal('AUXILIO SLEEP')">ADQUIRIR</button></div>
         
         <div class="card"><img src="holograma hs pescoço.jpg"><h3>HS PESCOÇO</h3><span class="preco-novo">R$ 1,70</span><button class="btn-comprar" onclick="abrirModal('HS PESCOÇO')">ADQUIRIR</button></div>
         
@@ -70,7 +68,7 @@
     </div>
 
     <div class="avaliacoes">
-        <h2 style="color: var(--primary);">⭐ AVALIAÇÕES</h2>
+        <h2 style="color: var(--primary);">⭐ AVALIAÇÕES RECENTES</h2>
         <div class="review-card"><strong>Davi:</strong> Entrega rápida e 100% confiável!</div>
         <div class="review-card"><strong>Sampaio:</strong> Os melhores painéis que já testei.</div>
     </div>
@@ -93,7 +91,7 @@
     function finalizarPedido() {
         const email = document.getElementById('emailCli').value.trim().toLowerCase();
         
-        // Trava rigorosa GMAIL
+        // Trava de e-mail Gmail
         if (!email.endsWith("@gmail.com")) {
             alert("❌ ERRO: Use apenas contas @gmail.com oficial!");
             return;
