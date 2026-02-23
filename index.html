@@ -7,35 +7,23 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            emailjs.init("GELM_vuWtLrQXSsMn"); // Sua Key
+            emailjs.init("GELM_vuWtLrQXSsMn"); // Tua Key
         })();
     </script>
     <style>
         :root { --primary: #7c3aed; --success: #22c55e; --bg: #050505; --card-bg: #111; }
         body { background-color: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding-top: 70px; }
-        
-        #promoBanner {
-            background: linear-gradient(90deg, #7c3aed, #4c1d95);
-            color: white; text-align: center; padding: 12px; position: fixed; top: 0; width: 100%; z-index: 1000; font-weight: bold; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
-        }
-
+        #promoBanner { background: linear-gradient(90deg, #7c3aed, #4c1d95); color: white; text-align: center; padding: 12px; position: fixed; top: 0; width: 100%; z-index: 1000; font-weight: bold; }
         .container { max-width: 1200px; margin: auto; padding: 20px; text-align: center; }
-        h1 { font-size: 3em; text-transform: uppercase; background: linear-gradient(to bottom, #fff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 40px; }
-
         .grid-produtos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
-        
-        .card { background: var(--card-bg); border: 1px solid rgba(124, 58, 237, 0.2); padding: 20px; border-radius: 15px; transition: 0.4s; text-align: center; }
-        .card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3); }
-        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; border: 1px solid #333; margin-bottom: 15px; }
-        
-        .preco-novo { color: var(--success); font-size: 1.5em; font-weight: 800; display: block; margin: 10px 0; }
-        .btn-comprar { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; text-transform: uppercase; }
-        .btn-comprar:hover { background: #6d28d9; transform: scale(1.05); }
-
-        /* Estilo do Modal */
-        #modalCompra { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .card { background: var(--card-bg); border: 1px solid rgba(124, 58, 237, 0.2); padding: 20px; border-radius: 15px; text-align: center; transition: 0.3s; }
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
+        .preco { color: var(--success); font-size: 1.5em; font-weight: bold; display: block; margin: 10px 0; }
+        .btn-comprar { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; }
+        #modalCompra { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
         .modal-content { background: #0e0e0e; padding: 30px; border-radius: 20px; border: 2px solid var(--primary); width: 90%; max-width: 400px; text-align: center; }
-        input { width: 100%; padding: 12px; margin: 20px 0; border-radius: 8px; border: 1px solid #333; background: #000; color: white; box-sizing: border-box; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 20px 0; border-radius: 8px; border: 1px solid #333; background: #000; color: white; text-align: center; }
     </style>
 </head>
 <body>
@@ -43,75 +31,46 @@
 <div id="promoBanner">⚡ PROMOÇÃO: 15% DE DESCONTO NO PIX ATIVADO! ⚡</div>
 
 <div class="container">
-    <h1>BROOK STORE</h1>
+    <h1 style="font-size: 3em; color: var(--primary);">BROOK STORE</h1>
 
     <div class="grid-produtos">
-        <div class="card"><img src="painel barbie.png"><h3>PAINEL DA BARBIE</h3><span class="preco-novo">R$ 4,25</span><button class="btn-comprar" onclick="abrirModal('PAINEL DA BARBIE')">ADQUIRIR</button></div>
-        
-        <div class="card"><img src="holograma v2.jpg"><h3>HOLOGRAMA V2</h3><span class="preco-novo">R$ 0,85</span><button class="btn-comprar" onclick="abrirModal('HOLOGRAMA V2')">ADQUIRIR</button></div>
-        
-        <div class="card"><img src="painel dark aura.jpg"><h3>PAINEL DARK AURA</h3><span class="preco-novo">R$ 5,94</span><button class="btn-comprar" onclick="abrirModal('PAINEL DARK AURA')">ADQUIRIR</button></div>
-        
-        <div class="card"><img src="Atalho full v4 ISO.jpg"><h3>ATALHO FULL V4</h3><span class="preco-novo">R$ 2,54</span><button class="btn-comprar" onclick="abrirModal('ATALHO FULL V4')">ADQUIRIR</button></div>
-        
-        <div class="card"><img src="painel Uriel Xiter.jpg"><h3>PAINEL URIEL</h3><span class="preco-novo">R$ 7,50</span><button class="btn-comprar" onclick="abrirModal('PAINEL URIEL')">ADQUIRIR</button></div>
-        
-        <div class="card"><img src="Auxilio Sleep.jpg"><h3>AUXILIO SLEEP</h3><span class="preco-novo">R$ 3,40</span><button class="btn-comprar" onclick="abrirModal('AUXILIO SLEEP')">ADQUIRIR</button></div>
-        
-        <div class="card"><img src="holograma hs pescoço.jpg"><h3>HS PESCOÇO</h3><span class="preco-novo">R$ 1,70</span><button class="btn-comprar" onclick="abrirModal('HS PESCOÇO')">ADQUIRIR</button></div>
-        
-        <div class="card"><img src="painel netflix.jpg"><h3>PAINEL NETFLIX</h3><span class="preco-novo">R$ 4,50</span><button class="btn-comprar" onclick="abrirModal('PAINEL NETFLIX')">ADQUIRIR</button></div>
-        
-        <div class="card"><img src="painel freestyle.jpg"><h3>PAINEL FREESTYLE</h3><span class="preco-novo">R$ 3,90</span><button class="btn-comprar" onclick="abrirModal('PAINEL FREESTYLE')">ADQUIRIR</button></div>
+        <div class="card"><img src="free fire amazon.jpg"><h3>FREE FIRE AMAZON</h3><span class="preco">R$ 2,99</span><button class="btn-comprar" onclick="abrirModal('FREE FIRE AMAZON')">ADQUIRIR</button></div>
+
+        <div class="card"><img src="painel Uriel Xiter.jpg"><h3>PAINEL URIEL</h3><span class="preco">R$ 7,50</span><button class="btn-comprar" onclick="abrirModal('PAINEL URIEL')">ADQUIRIR</button></div>
+        <div class="card"><img src="Auxilio Sleep.jpg"><h3>AUXILIO SLEEP</h3><span class="preco">R$ 3,40</span><button class="btn-comprar" onclick="abrirModal('AUXILIO SLEEP')">ADQUIRIR</button></div>
+        <div class="card"><img src="holograma hs pescoço.jpg"><h3>HS PESCOÇO</h3><span class="preco">R$ 1,70</span><button class="btn-comprar" onclick="abrirModal('HS PESCOÇO')">ADQUIRIR</button></div>
+        <div class="card"><img src="painel barbie.png"><h3>PAINEL DA BARBIE</h3><span class="preco">R$ 4,25</span><button class="btn-comprar" onclick="abrirModal('PAINEL DA BARBIE')">ADQUIRIR</button></div>
+        <div class="card"><img src="holograma v2.jpg"><h3>HOLOGRAMA V2</h3><span class="preco">R$ 0,85</span><button class="btn-comprar" onclick="abrirModal('HOLOGRAMA V2')">ADQUIRIR</button></div>
+        <div class="card"><img src="painel dark aura.jpg"><h3>PAINEL DARK AURA</h3><span class="preco">R$ 5,94</span><button class="btn-comprar" onclick="abrirModal('PAINEL DARK AURA')">ADQUIRIR</button></div>
+        <div class="card"><img src="Atalho full v4 ISO.jpg"><h3>ATALHO FULL V4</h3><span class="preco">R$ 2,54</span><button class="btn-comprar" onclick="abrirModal('ATALHO FULL V4')">ADQUIRIR</button></div>
+        <div class="card"><img src="painel netflix.jpg"><h3>PAINEL NETFLIX</h3><span class="preco">R$ 4,50</span><button class="btn-comprar" onclick="abrirModal('PAINEL NETFLIX')">ADQUIRIR</button></div>
+        <div class="card"><img src="painel freestyle.jpg"><h3>PAINEL FREESTYLE</h3><span class="preco">R$ 3,90</span><button class="btn-comprar" onclick="abrirModal('PAINEL FREESTYLE')">ADQUIRIR</button></div>
     </div>
 </div>
 
 <div id="modalCompra">
     <div class="modal-content">
-        <h2 id="nomeProd" style="color: var(--primary);">FINALIZAR</h2>
-        <p style="font-size: 14px; color: #888;">Digite seu GMAIL para receber o código.</p>
-        <input type="email" id="emailCli" placeholder="seu-email@gmail.com">
-        <button class="btn-comprar" onclick="finalizarPedido()">ENVIAR PEDIDO</button>
-        <button onclick="fecharModal()" style="background:none; color:#555; border:none; margin-top:15px; cursor:pointer;">Cancelar</button>
+        <h2 id="nomeProd" style="color: var(--primary);"></h2>
+        <input type="email" id="emailCli" placeholder="Teu Gmail aqui">
+        <button class="btn-comprar" onclick="finalizar()">ENVIAR PEDIDO</button>
+        <button onclick="fecharModal()" style="background:none; color:#555; border:none; margin-top:10px; cursor:pointer;">Sair</button>
     </div>
 </div>
 
 <script>
-    let produtoSelecionado = "";
+    let prod = "";
+    function abrirModal(n) { prod = n; document.getElementById('nomeProd').innerText = n; document.getElementById('modalCompra').style.display = 'flex'; }
+    function fecharModal() { document.getElementById('modalCompra').style.display = 'none'; }
 
-    function abrirModal(nome) {
-        produtoSelecionado = nome;
-        document.getElementById('nomeProd').innerText = nome;
-        document.getElementById('modalCompra').style.display = 'flex';
-    }
+    function finalizar() {
+        const e = document.getElementById('emailCli').value;
+        if(!e.includes("@gmail.com")) return alert("Usa um Gmail!");
 
-    function fecharModal() {
-        document.getElementById('modalCompra').style.display = 'none';
-    }
-
-    function finalizarPedido() {
-        const email = document.getElementById('emailCli').value.trim().toLowerCase();
-        
-        if (!email.endsWith("@gmail.com")) {
-            alert("❌ ERRO: Use apenas contas @gmail.com!");
-            return;
-        }
-
-        // Gera o código e envia via EmailJS
-        const codigoGerado = "BROOK" + Math.floor(1000 + Math.random() * 9000);
-        
-        emailjs.send("service_uu69awn", "template_pi9wl0p", { 
-            v1: codigoGerado, 
-            to_email: email, 
-            produto: produtoSelecionado 
-        }).then(function() {
-            alert("🚀 PEDIDO ENVIADO!\n\nVerifique seu Gmail e mande o print do código no nosso Discord.");
-            fecharModal();
-        }, function(err) {
-            alert("Erro ao enviar: " + JSON.stringify(err));
-        });
+        // Envio configurado com os teus IDs
+        emailjs.send("service_uu69awn", "template_pi9wl0p", { to_email: e, produto_nome: prod })
+        .then(() => { alert("Pedido enviado! Vê o teu e-mail."); fecharModal(); })
+        .catch(err => alert("Erro: " + err));
     }
 </script>
-
 </body>
 </html>
