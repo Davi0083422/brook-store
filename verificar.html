@@ -15,66 +15,72 @@
         .container { background: #111; padding: 30px; border-radius: 15px; border: 2px solid #7c3aed; text-align: center; width: 90%; max-width: 400px; box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
         input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #333; background: #000; color: white; box-sizing: border-box; text-align: center; }
         button { background: #7c3aed; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; transition: 0.3s; }
-        #painelDono { display: none; margin-top: 30px; border-top: 2px dashed #7c3aed; padding-top: 20px; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        #painelDono { display: none; margin-top: 30px; border-top: 2px dashed #7c3aed; padding-top: 20px; }
+        .success-box { background: rgba(34, 197, 94, 0.2); padding: 15px; border: 1px solid #22c55e; border-radius: 8px; margin-top: 15px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h2 style="color: #7c3aed;">VERIFICAR ACESSO</h2>
-    <input type="text" id="inputCodigo" placeholder="COLOQUE SEU CÓDIGO AQUI">
-    <button id="btnVerificar">VERIFICAR</button>
-    
+    <input type="text" id="inputCodigo" placeholder="DIGITE O CÓDIGO">
+    <button id="btnVerificar">VERIFICAR AGORA</button>
     <div id="resultado"></div>
 
     <div id="painelDono">
         <h3 style="color: #22c55e;">SISTEMA DO DONO ATIVO</h3>
-        <p style="font-size: 12px; color: #888;">Liberar acesso para cliente:</p>
-        <input type="email" id="emailLiberar" placeholder="gmail-do-cliente@gmail.com">
-        <button id="btnEnviarEmail" style="background: #22c55e;">ENVIAR CÓDIGO AGORA</button>
+        <input type="email" id="emailLiberar" placeholder="Gmail do Cliente">
+        <button id="btnLiberarManual" style="background: #22c55e;">LIBERAR ACESSO</button>
     </div>
 </div>
 
 <script>
-    // SEU UUID DO CMD
-    const CHAVE_MESTRA = "03000200-0400-0500-0006-000700080009";
+    // SEU UUID QUE VOCÊ PEGOU NO CMD
+    const SEU_UUID = "03000200-0400-0500-0006-000700080009";
+
+    // FUNÇÃO QUE RODA ASSIM QUE O SITE ABRE
+    function checarDono() {
+        if (localStorage.getItem('adminKey') === SEU_UUID) {
+            document.getElementById('painelDono').style.display = 'block';
+        }
+    }
+    checarDono();
 
     document.getElementById('btnVerificar').addEventListener('click', function() {
-        const entrada = document.getElementById('inputCodigo').value.trim();
+        const cod = document.getElementById('inputCodigo').value.trim();
         const res = document.getElementById('resultado');
 
-        // Se o que for digitado for o seu UUID, libera o painel
-        if (entrada === CHAVE_MESTRA) {
+        // SE VOCÊ DIGITAR SEU UUID, O SITE TE RECONHECE PARA SEMPRE NESSE PC
+        if (cod === SEU_UUID) {
+            localStorage.setItem('adminKey', SEU_UUID);
             document.getElementById('painelDono').style.display = 'block';
-            res.innerHTML = "<p style='color: #22c55e;'>Olá Davi! Painel administrativo liberado.</p>";
+            res.innerHTML = "<p style='color:#22c55e;'>Identidade Confirmada, Davi! Painel Ativado.</p>";
             return;
         }
 
-        // Se for um código de cliente (BROOK...)
-        if (entrada.toUpperCase().startsWith("BROOK") && entrada.length > 5) {
-            res.innerHTML = "<h3 style='color: #22c55e;'>✅ ACESSO LIBERADO!</h3><p>Mande print no Discord.</p>";
+        // VERIFICAÇÃO NORMAL DOS CLIENTES
+        if (cod.toUpperCase().startsWith("BROOK") && cod.length > 5) {
+            res.innerHTML = "<div class='success-box'>✅ ACESSO LIBERADO! Mande print no Discord.</div>";
         } else {
-            res.innerHTML = "<p style='color: #ff4444;'>❌ Código Inválido.</p>";
+            res.innerHTML = "<p style='color:#ff4444;'>❌ Código Inválido.</p>";
         }
     });
 
-    // Função de enviar e-mail pelo painel de dono
-    document.getElementById('btnEnviarEmail').addEventListener('click', function() {
+    // BOTÃO DE ENVIAR E-MAIL PELO PAINEL
+    document.getElementById('btnLiberarManual').addEventListener('click', function() {
         const email = document.getElementById('emailLiberar').value.trim();
-        
         if (!email.endsWith("@gmail.com")) {
-            alert("Erro: O cliente precisa ter um GMAIL!");
+            alert("Use um e-mail @gmail.com!");
             return;
         }
 
-        const codigoGerado = "BROOK" + Math.floor(1000 + Math.random() * 9000);
+        const codigoNovo = "BROOK" + Math.floor(1000 + Math.random() * 9000);
 
         emailjs.send("service_uu69awn", "template_pi9wl0p", {
-            v1: codigoGerado,
+            v1: codigoNovo,
             to_email: email
         }).then(function() {
-            alert("✅ SUCESSO! Código " + codigoGerado + " enviado para " + email);
+            alert("✅ SUCESSO! Código " + codigoNovo + " enviado para " + email);
             document.getElementById('emailLiberar').value = "";
         });
     });
