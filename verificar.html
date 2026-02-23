@@ -1,75 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificação - BROOK STORE</title>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            emailjs.init("GELM_vuWtLrQXSsMn"); // Sua Key
-        })();
-    </script>
-    <style>
-        body { background-color: #050505; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
-        .container { background: #111; padding: 30px; border-radius: 15px; border: 2px solid #7c3aed; text-align: center; width: 90%; max-width: 400px; box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #333; background: #000; color: white; box-sizing: border-box; text-align: center; }
-        button { background: #7c3aed; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; }
-        #painelAdmin { display: none; margin-top: 30px; border-top: 2px dashed #7c3aed; padding-top: 20px; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <h2 style="color: #7c3aed;">VERIFICAR CÓDIGO</h2>
-    <input type="text" id="inputCodigo" placeholder="COLOQUE SEU CÓDIGO">
-    <button id="btnVerificar">VALIDAR ACESSO</button>
-    <div id="resultado"></div>
-
-    <div id="painelAdmin">
-        <h3 style="color: #22c55e;">PAINEL DO DONO</h3>
-        <input type="email" id="emailLiberar" placeholder="Gmail do Cliente">
-        <button id="btnLiberar" style="background: #22c55e;">LIBERAR E ENVIAR E-MAIL</button>
-    </div>
-</div>
-
-<script>
-    // SEU SERIAL DO VOL C:
-    const HWID_DONO = "8808-F4E1";
-
-    // Se já logou antes, abre direto
-    if (localStorage.getItem('isOwner') === 'true') {
-        document.getElementById('painelAdmin').style.display = 'block';
-    }
-
-    document.getElementById('btnVerificar').addEventListener('click', function() {
-        const entrada = document.getElementById('inputCodigo').value.trim();
-        const res = document.getElementById('resultado');
-
-        // Se digitar seu serial, o site te reconhece
-        if (entrada === HWID_DONO) {
-            localStorage.setItem('isOwner', 'true');
-            document.getElementById('painelAdmin').style.display = 'block';
-            res.innerHTML = "<p style='color:#22c55e;'>Dono Autenticado! Painel Ativo.</p>";
-            return;
-        }
-
-        // Verificação dos clientes
-        if (entrada.toUpperCase().startsWith("BROOK") && entrada.length > 5) {
-            res.innerHTML = "<h3 style='color:#22c55e;'>✅ ACESSO LIBERADO!</h3>";
-        } else {
-            res.innerHTML = "<p style='color:#ff4444;'>❌ Código Inválido.</p>";
-        }
-    });
-
-    document.getElementById('btnLiberar').addEventListener('click', function() {
+document.getElementById('btnLiberar').addEventListener('click', function() {
         const email = document.getElementById('emailLiberar').value.trim();
-        if (!email.endsWith("@gmail.com")) { alert("Use GMAIL!"); return; }
+        
+        if (!email.toLowerCase().endsWith("@gmail.com")) { 
+            alert("Use apenas e-mails @gmail.com!"); 
+            return; 
+        }
 
         const cod = "BROOK" + Math.floor(1000 + Math.random() * 9000);
-        emailjs.send("service_uu69awn", "template_pi9wl0p", { v1: cod, to_email: email })
-        .then(() => { alert("✅ ENVIADO! Código: " + cod); });
+
+        // ESSA É A PARTE QUE DEVE ESTAR IGUAL AO SEU PAINEL
+        emailjs.send("service_uu69awn", "template_pi9wl0p", { 
+            v1: cod, 
+            to_email: email 
+        }).then(function(response) {
+            console.log("SUCESSO!", response.status, response.text);
+            alert("✅ ENVIADO! Código: " + cod);
+            document.getElementById('emailLiberar').value = "";
+        }, function(error) {
+            console.log("FALHA...", error);
+            alert("❌ ERRO NO ENVIO: " + JSON.stringify(error));
+        });
     });
-</script>
-</body>
-</html>
