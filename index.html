@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BROOK STORE | PREMIUM</title>
+    <title>BROOK STORE | OFICIAL</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
-        (function() {
-            emailjs.init("GELM_vuWtLrQXSsMn"); // Sua Public Key confirmada
-        })();
+        (function() { emailjs.init("GELM_vuWtLrQXSsMn"); })(); 
     </script>
     <style>
         :root { --primary: #7c3aed; --success: #22c55e; --bg: #050505; --card-bg: #111; }
@@ -17,13 +15,14 @@
         .container { max-width: 1200px; margin: auto; padding: 20px; text-align: center; }
         .grid-produtos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
         .card { background: var(--card-bg); border: 1px solid rgba(124, 58, 237, 0.2); padding: 20px; border-radius: 15px; text-align: center; transition: 0.3s; }
-        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
         .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; border: 1px solid #333; }
         .preco { color: var(--success); font-size: 1.5em; font-weight: bold; display: block; margin: 10px 0; }
         .btn-comprar { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; }
+        
         #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-content { background: #0e0e0e; padding: 30px; border-radius: 20px; border: 2px solid var(--primary); width: 90%; max-width: 400px; text-align: center; }
-        input { width: 100%; padding: 12px; margin: 20px 0; border-radius: 8px; border: 1px solid #333; background: #000; color: white; text-align: center; box-sizing: border-box; }
+        .modal-content { background: #0e0e0e; padding: 25px; border-radius: 20px; border: 2px solid var(--primary); width: 90%; max-width: 380px; text-align: center; }
+        .pix-box { background: #1a1a1a; padding: 10px; border-radius: 10px; margin: 15px 0; border: 1px dashed #444; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #333; background: #000; color: white; text-align: center; box-sizing: border-box; }
     </style>
 </head>
 <body>
@@ -34,47 +33,68 @@
     <h1 style="color: var(--primary); font-size: 3em; margin-bottom: 40px;">BROOK STORE</h1>
 
     <div class="grid-produtos">
-        <div class="card"><img src="free fire amazon.jpg"><h3>FREE FIRE AMAZON</h3><span class="preco">R$ 2,99</span><button class="btn-comprar" onclick="abrir('FREE FIRE AMAZON')">ADQUIRIR</button></div>
-        <div class="card"><img src="painel Uriel Xiter.jpg"><h3>PAINEL URIEL</h3><span class="preco">R$ 7,50</span><button class="btn-comprar" onclick="abrir('PAINEL URIEL')">ADQUIRIR</button></div>
-        <div class="card"><img src="Auxilio Sleep.jpg"><h3>AUXILIO SLEEP</h3><span class="preco">R$ 3,40</span><button class="btn-comprar" onclick="abrir('AUXILIO SLEEP')">ADQUIRIR</button></div>
-        <div class="card"><img src="holograma hs pescoço.jpg"><h3>HS PESCOÇO</h3><span class="preco">R$ 1,70</span><button class="btn-comprar" onclick="abrir('HS PESCOÇO')">ADQUIRIR</button></div>
-        <div class="card"><img src="painel barbie.png"><h3>PAINEL DA BARBIE</h3><span class="preco">R$ 4,25</span><button class="btn-comprar" onclick="abrir('PAINEL DA BARBIE')">ADQUIRIR</button></div>
-        <div class="card"><img src="holograma v2.jpg"><h3>HOLOGRAMA V2</h3><span class="preco">R$ 0,85</span><button class="btn-comprar" onclick="abrir('HOLOGRAMA V2')">ADQUIRIR</button></div>
-        <div class="card"><img src="painel dark aura.jpg"><h3>PAINEL DARK AURA</h3><span class="preco">R$ 5,94</span><button class="btn-comprar" onclick="abrir('PAINEL DARK AURA')">ADQUIRIR</button></div>
-        <div class="card"><img src="Atalho full v4 ISO.jpg"><h3>ATALHO FULL V4</h3><span class="preco">R$ 2,54</span><button class="btn-comprar" onclick="abrir('ATALHO FULL V4')">ADQUIRIR</button></div>
-        <div class="card"><img src="painel netflix.jpg"><h3>PAINEL NETFLIX</h3><span class="preco">R$ 4,50</span><button class="btn-comprar" onclick="abrir('PAINEL NETFLIX')">ADQUIRIR</button></div>
-        <div class="card"><img src="painel freestyle.jpg"><h3>PAINEL FREESTYLE</h3><span class="preco">R$ 3,90</span><button class="btn-comprar" onclick="abrir('PAINEL FREESTYLE')">ADQUIRIR</button></div>
+        <div class="card"><img src="free fire amazon.jpg"><h3>FREE FIRE AMAZON</h3><span class="preco">R$ 2,99</span><button class="btn-comprar" onclick="abrir('FREE FIRE AMAZON', 'R$ 2,99')">ADQUIRIR</button></div>
+        <div class="card"><img src="painel Uriel Xiter.jpg"><h3>PAINEL URIEL</h3><span class="preco">R$ 7,50</span><button class="btn-comprar" onclick="abrir('PAINEL URIEL', 'R$ 7,50')">ADQUIRIR</button></div>
+        <div class="card"><img src="Auxilio Sleep.jpg"><h3>AUXILIO SLEEP</h3><span class="preco">R$ 3,40</span><button class="btn-comprar" onclick="abrir('AUXILIO SLEEP', 'R$ 3,40')">ADQUIRIR</button></div>
+        <div class="card"><img src="holograma hs pescoço.jpg"><h3>HS PESCOÇO</h3><span class="preco">R$ 1,70</span><button class="btn-comprar" onclick="abrir('HS PESCOÇO', 'R$ 1,70')">ADQUIRIR</button></div>
+        <div class="card"><img src="painel barbie.png"><h3>PAINEL DA BARBIE</h3><span class="preco">R$ 4,25</span><button class="btn-comprar" onclick="abrir('PAINEL DA BARBIE', 'R$ 4,25')">ADQUIRIR</button></div>
+        <div class="card"><img src="holograma v2.jpg"><h3>HOLOGRAMA V2</h3><span class="preco">R$ 0,85</span><button class="btn-comprar" onclick="abrir('HOLOGRAMA V2', 'R$ 0,85')">ADQUIRIR</button></div>
+        <div class="card"><img src="painel dark aura.jpg"><h3>PAINEL DARK AURA</h3><span class="preco">R$ 5,94</span><button class="btn-comprar" onclick="abrir('PAINEL DARK AURA', 'R$ 5,94')">ADQUIRIR</button></div>
+        <div class="card"><img src="Atalho full v4 ISO.jpg"><h3>ATALHO FULL V4</h3><span class="preco">R$ 2,54</span><button class="btn-comprar" onclick="abrir('ATALHO FULL V4', 'R$ 2,54')">ADQUIRIR</button></div>
+        <div class="card"><img src="painel netflix.jpg"><h3>PAINEL NETFLIX</h3><span class="preco">R$ 4,50</span><button class="btn-comprar" onclick="abrir('PAINEL NETFLIX', 'R$ 4,50')">ADQUIRIR</button></div>
+        <div class="card"><img src="painel freestyle.jpg"><h3>PAINEL FREESTYLE</h3><span class="preco">R$ 3,90</span><button class="btn-comprar" onclick="abrir('PAINEL FREESTYLE', 'R$ 3,90')">ADQUIRIR</button></div>
     </div>
 </div>
 
 <div id="modal">
     <div class="modal-content">
-        <h2 id="mNome" style="color: var(--primary);"></h2>
-        <input type="email" id="mEmail" placeholder="Seu Gmail para o pedido">
-        <button class="btn-comprar" onclick="enviar()">SOLICITAR AGORA</button>
-        <button onclick="fechar()" style="background:none; color:#555; border:none; margin-top:15px; cursor:pointer;">Cancelar</button>
+        <h2 id="mNome" style="color: var(--primary); margin: 0;"></h2>
+        <p id="mPreco" style="color: var(--success); font-weight: bold; font-size: 1.2em;"></p>
+        
+        <img src="pix.jpg" alt="Pagamento PIX" style="width: 160px; height: 160px; border: 2px solid #fff; border-radius: 10px; margin: 10px 0;">
+        
+        <div class="pix-box">
+            <span style="font-size: 11px; color: #888;">CHAVE PIX (E-MAIL)</span>
+            <input type="text" id="chavePix" value="gdavi6519@gmail.com" readonly style="background: transparent; border: none; font-weight: bold; margin: 5px 0; color: #fff;">
+            <button onclick="copiarPix()" style="background: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-weight: bold;">COPIAR CHAVE</button>
+        </div>
+
+        <input type="email" id="mEmail" placeholder="Seu Gmail para entrega">
+        <button class="btn-comprar" onclick="enviar()">CONFIRMAR PEDIDO</button>
+        <button onclick="fechar()" style="background:none; color:#555; border:none; margin-top:10px; cursor:pointer;">Voltar</button>
     </div>
 </div>
 
 <script>
     let pNome = "";
-    function abrir(n) { pNome = n; document.getElementById('mNome').innerText = n; document.getElementById('modal').style.display = 'flex'; }
+    function abrir(n, preco) { 
+        pNome = n; 
+        document.getElementById('mNome').innerText = n; 
+        document.getElementById('mPreco').innerText = preco;
+        document.getElementById('modal').style.display = 'flex'; 
+    }
     function fechar() { document.getElementById('modal').style.display = 'none'; }
 
-    function enviar() {
-        const emailCli = document.getElementById('mEmail').value.trim();
-        if(!emailCli.endsWith("@gmail.com")) return alert("Erro: Use um Gmail oficial!");
+    function copiarPix() {
+        const input = document.getElementById('chavePix');
+        input.select();
+        document.setSelectionRange(0, 99999); 
+        navigator.clipboard.writeText(input.value);
+        alert("✅ Chave PIX copiada com sucesso!");
+    }
 
-        // Envio sincronizado com o seu novo To Email
+    function enviar() {
+        const email = document.getElementById('mEmail').value.trim();
+        if(!email.toLowerCase().endsWith("@gmail.com")) return alert("Por favor, insira um Gmail válido.");
+
+        // Sincronizado com seu template
         emailjs.send("service_uu69awn", "template_pi9wl0p", { 
-            email_cliente: emailCli, 
+            email_cliente: email, 
             nome_do_produto: pNome 
         }).then(() => {
-            alert("✅ SUCESSO! Pedido enviado para " + emailCli);
+            alert("✅ Pedido enviado! Verifique seu e-mail em instantes.");
             fechar();
-        }).catch(err => {
-            alert("❌ Erro no EmailJS: " + (err.text || "Verifique o painel"));
-        });
+        }).catch(err => alert("Erro ao processar: " + err.text));
     }
 </script>
 </body>
