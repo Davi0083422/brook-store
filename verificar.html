@@ -3,49 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>BROOK STORE | VERIFICAR</title>
+    <title>Verificação - BROOK STORE</title>
     <style>
-        body { background: #0a0514; color: white; font-family: sans-serif; display: flex; align-items: center; justify-content: center; min-height: screen; }
-        .box { background: #130a24; border: 1px solid #7c3aed; padding: 40px; border-radius: 24px; text-align: center; max-width: 400px; width: 100%; }
-        input { background: #000; border: 1px solid #333; color: #0f0; padding: 15px; width: 100%; border-radius: 8px; text-align: center; font-family: monospace; font-size: 20px; outline: none; margin-bottom: 20px; }
-        button { background: #7c3aed; color: white; width: 100%; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        body {
+            background-color: #0a0a0a;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #111;
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid #7c3aed;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+            max-width: 400px;
+        }
+        h1 { color: #7c3aed; margin-bottom: 20px; }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background: #222;
+            color: white;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        button {
+            background-color: #7c3aed;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #6d28d9; }
+        #resultado { margin-top: 20px; font-weight: bold; line-height: 1.6; }
+        .success-box {
+            background: rgba(34, 197, 94, 0.2);
+            padding: 15px;
+            border: 1px solid #22c55e;
+            border-radius: 8px;
+        }
     </style>
 </head>
-<body class="bg-[#0a0514]">
-    <div class="box">
-        <h1 class="text-purple-500 font-black italic mb-4 uppercase">Verificação Brook</h1>
-        <p class="text-gray-400 text-sm mb-6">Insira o código enviado ao seu Gmail para liberar o acesso.</p>
-        
-        <input id="input-cod" type="text" placeholder="BROOK0000">
-        
-        <button onclick="checar()">Verificar Código</button>
-        
-        <p id="msg" class="mt-4 text-xs font-bold"></p>
-    </div>
+<body>
 
-    <script>
-        function checar() {
-            const cod = document.getElementById('input-cod').value.trim().toUpperCase();
-            
-            // Aceita qualquer código que comece com BROOK e tenha 9 letras no total
-            if (cod.startsWith("BROOK") && cod.length === 9) {
-                Swal.fire({
-                    title: 'ACESSO LIBERADO!',
-                    text: 'Código verificado com sucesso.',
-                    icon: 'success',
-                    background: '#130a24', color: '#fff'
-                });
-            } else {
-                Swal.fire({
-                    title: 'ERRO!',
-                    text: 'Código inválido ou expirado.',
-                    icon: 'error',
-                    background: '#130a24', color: '#fff'
-                });
-            }
+<div class="container">
+    <h1>BROOK STORE</h1>
+    <p>Insira o código enviado para o seu Gmail:</p>
+    <input type="text" id="inputCodigo" placeholder="Ex: BROOK1234">
+    <button onclick="verificar()">VERIFICAR AGORA</button>
+    <div id="resultado"></div>
+</div>
+
+<script>
+    function verificar() {
+        const codigoDigitado = document.getElementById('inputCodigo').value.trim().toUpperCase();
+        const resultado = document.getElementById('resultado');
+
+        // Verifica se o código começa com "BROOK" (como configuramos no seu template)
+        if (codigoDigitado.startsWith("BROOK") && codigoDigitado.length > 5) {
+            resultado.innerHTML = `
+                <div class="success-box">
+                    <h2 style="color: #22c55e;">✅ ACESSO LIBERADO!</h2>
+                    <p>Tire um <b>PRINT DESTA TELA</b> agora!</p>
+                    <p>Mande o print no nosso <b>TICKET DO DISCORD</b> para receber seu produto imediatamente.</p>
+                </div>
+            `;
+        } else {
+            resultado.innerHTML = `<span style="color: #ef4444;">❌ Código inválido ou expirado.</span>`;
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
